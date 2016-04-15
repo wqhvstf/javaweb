@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 public final class CollectionUtil {
 
@@ -16,6 +17,27 @@ public final class CollectionUtil {
 	 */
 	public static boolean isEmpty(Collection<?> collection) {
 		return CollectionUtils.isEmpty(collection);
+	}
+
+	/**
+	 * 判断数组是否为非空
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isNotEmpty(Object[] array) {
+		return !isEmpty(array);
+	}
+	
+	
+	/**
+	 * 判断数组是否为空
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(Object[] array) {
+		return ArrayUtils.isEmpty(array);
 	}
 
 	/**
