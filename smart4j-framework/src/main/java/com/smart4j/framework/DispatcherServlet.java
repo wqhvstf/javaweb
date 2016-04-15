@@ -68,15 +68,21 @@ public class DispatcherServlet extends HttpServlet {
 			}
 
 			String body = CodecUtil.decodeURL(StreamUtil.getString(req.getInputStream()));
+
+			Param param = null;
 			if (StringUtil.isNotEmpty(body)) {
 				paramMap = StringUtil.splitString(body, "&", "=");
+				param = new Param(paramMap);
 			}
-
-			Param param = new Param(paramMap);
 
 			// 调用Action的方法
 			Method actionMethod = handler.getActionMethod();
-			Object result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+			Object result = null;
+			if (param == null) {
+				result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
+			} else {
+				result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+			}
 
 			// 处理Action方法的返回值
 			if (result instanceof View) {
@@ -91,7 +97,7 @@ public class DispatcherServlet extends HttpServlet {
 						for (Entry<String, Object> entry : model.entrySet()) {
 							req.setAttribute(entry.getKey(), entry.getValue());
 						}
-						req.getRequestDispatcher(ConfigHelper.getAppJspPath() + "path").forward(req, resp);
+						req.getRequestDispatcher(ConfigHelper.getAppJspPath() + path).forward(req, resp);
 					}
 				}
 			} else if (result instanceof Data) {

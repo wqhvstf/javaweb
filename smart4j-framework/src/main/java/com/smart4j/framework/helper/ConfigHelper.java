@@ -13,6 +13,7 @@ import com.smart4j.framework.util.PropsUtil;
  * @date 2016年4月15日 上午11:37:34
  */
 public final class ConfigHelper {
+	
 	private static final Properties CONFIG_PROPS = PropsUtil.loadProps(ConfigConstant.CONFIG_FILE);
 
 	/**

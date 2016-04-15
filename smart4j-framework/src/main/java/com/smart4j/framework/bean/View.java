@@ -2,6 +2,8 @@ package com.smart4j.framework.bean;
 
 import java.util.Map;
 
+import com.google.common.collect.Maps;
+
 /**
  * 返回视图对象
  * 
@@ -23,6 +25,7 @@ public class View {
 	public View(String path) {
 		super();
 		this.path = path;
+		this.model = Maps.newHashMap();
 	}
 
 	public View addModel(String key, Object value) {
